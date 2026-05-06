@@ -39,8 +39,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .ec{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--faint);}
 .esep{width:16px;height:1px;background:var(--line);}
-.er{font-size:9px;color:var(--faint);font-family:'Geist Mono',monospace;}
-.et{font-size:9px;color:var(--faint);font-family:'Geist Mono',monospace;}
+.er,.et{font-size:9px;color:var(--faint);font-family:'Geist Mono',monospace;}
 .htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,48px);font-weight:300;line-height:1.08;color:var(--ink);letter-spacing:-.3px;text-decoration:none;display:block;margin-bottom:16px;transition:opacity .2s;}
 .htitle:hover{opacity:.5;}
 .hsum{font-size:14px;line-height:1.8;color:var(--mid);font-weight:300;max-width:600px;}
@@ -52,8 +51,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 .sm{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
 .sc{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);}
 .sd{width:2px;height:2px;border-radius:50%;background:var(--line);flex-shrink:0;}
-.ss{font-size:8.5px;color:var(--faint);font-family:'Geist Mono',monospace;}
-.stm{font-size:8.5px;color:var(--faint);font-family:'Geist Mono',monospace;}
+.ss,.stm{font-size:8.5px;color:var(--faint);font-family:'Geist Mono',monospace;}
 .stitle{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:4px;}
 .ssnip{font-size:11.5px;line-height:1.6;color:var(--mid);font-weight:300;}
 .sarr{font-size:10px;color:var(--line);flex-shrink:0;padding-top:4px;margin-left:12px;}
@@ -65,4 +63,167 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 .ctab:hover{color:var(--ink);}
 .ctab.on{color:var(--ink);font-weight:500;}
 .ctab.on::after{content:' ←';font-size:8px;}
-.sbscroll{flex
+.sbscroll{flex:1;overflow-y:auto;}
+.sbscroll::-webkit-scrollbar{width:0;}
+.sec{padding:18px 20px;border-bottom:1px solid var(--line);}
+.slbl{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:12px;}
+.arow{display:block;text-decoration:none;color:inherit;padding:8px 0;border-bottom:1px solid var(--line);transition:opacity .18s;}
+.arow:last-child{border-bottom:none;}
+.arow:hover{opacity:.45;}
+.atxt{font-size:11px;line-height:1.5;color:var(--ink);font-weight:300;}
+.atm{font-size:8.5px;color:var(--faint);font-family:'Geist Mono',monospace;margin-top:2px;}
+.trow{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:opacity .18s;}
+.trow:last-child{border-bottom:none;}
+.trow:hover{opacity:.4;}
+.tn{font-family:'Geist Mono',monospace;font-size:8.5px;color:var(--line);flex-shrink:0;padding-top:2px;width:14px;}
+.th{font-size:11px;line-height:1.4;color:var(--ink);font-weight:300;flex:1;}
+.tsrc{font-size:8.5px;color:var(--faint);font-family:'Geist Mono',monospace;margin-top:1px;}
+.btxt{font-size:11px;line-height:1.8;color:var(--mid);font-weight:300;font-style:italic;}
+.greet{position:fixed;bottom:36px;left:52px;pointer-events:none;line-height:1;z-index:50;}
+.g1{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.2vw,44px);font-weight:300;color:var(--ink);line-height:1;}
+.g2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,3vw,40px);font-weight:300;color:#ccc;line-height:1.05;margin-top:1px;}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="tl">
+    <div class="live"><div class="dot"></div>Live</div>
+    <span class="stat" id="stat">Connecting…</span>
+    <button class="rfbtn" id="rfbtn" onclick="doRefresh()">
+      <svg id="rficon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Refresh
+    </button>
+  </div>
+  <div class="tr">
+    <div class="wx"><span id="wxi">—</span><span class="wxt" id="wxt">—°</span><span id="wxd">Boston</span></div>
+    <div class="clk"><div class="ct" id="ct">—</div><div class="cd" id="cd">—</div></div>
+  </div>
+</div>
+<div class="ticker"><div class="ti"><div class="tt" id="tt"><span>Loading headlines…</span><span>Loading headlines…</span></div></div></div>
+<div class="layout">
+  <div class="feed">
+    <div class="fi">
+      <div class="hero">
+        <div class="eyebrow"><span class="ec" id="hcat"></span><div class="esep"></div><span class="er" id="hsrc"></span><span class="et" id="htm"></span></div>
+        <a class="htitle" id="htitle" href="#" target="_blank">Loading top story…</a>
+        <p class="hsum" id="hsum">Fetching the latest national news…</p>
+      </div>
+      <div id="slist"></div>
+    </div>
+  </div>
+  <div class="sbw">
+    <div class="cats">
+      <button class="ctab on" onclick="fcat(this,'all')">All</button>
+      <button class="ctab" onclick="fcat(this,'politics')">Politics</button>
+      <button class="ctab" onclick="fcat(this,'world')">World</button>
+      <button class="ctab" onclick="fcat(this,'tech')">Tech</button>
+      <button class="ctab" onclick="fcat(this,'economy')">Economy</button>
+      <button class="ctab" onclick="fcat(this,'health')">Health</button>
+      <button class="ctab" onclick="fcat(this,'culture')">Pop Culture</button>
+    </div>
+    <div class="sbscroll">
+      <div class="sec"><span class="slbl">Alerts</span><div id="alerts"><span class="sk" style="width:100%;height:26px;display:block;"></span></div></div>
+      <div class="sec"><span class="slbl">Trending — <span id="trtm" style="font-family:'Geist Mono',monospace;text-transform:none;letter-spacing:.3px;font-size:8.5px;">—</span></span><div id="tlist"><span class="sk" style="width:100%;height:80px;display:block;"></span></div></div>
+      <div class="sec"><span class="slbl">Briefing</span><div class="btxt" id="brief">Loading…</div></div>
+    </div>
+  </div>
+</div>
+<div class="greet"><div class="g1" id="g1">Good morning,</div><div class="g2">Owen.</div></div>
+<script>
+var stories=[],filter='all';
+function tick(){
+  var n=new Date(),h=n.getHours(),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0'),ap=h>=12?'PM':'AM';
+  h=h%12||12;
+  document.getElementById('ct').textContent=h+':'+m+':'+s+' '+ap;
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],mos=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],nd=new Date();
+  document.getElementById('cd').textContent=days[nd.getDay()]+' · '+mos[nd.getMonth()]+' '+nd.getDate();
+  var hr=nd.getHours();
+  document.getElementById('g1').textContent=hr>=5&&hr<12?'Good morning,':hr>=12&&hr<17?'Good afternoon,':hr>=17&&hr<21?'Good evening,':'Good night,';
+}
+setInterval(tick,1000);tick();
+async function wx(){
+  try{
+    var r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3601&longitude=-71.0589&current=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone=America%2FNew_York'),d=await r.json(),c=d.current;
+    var em=function(v){return v===0?'☀':v<=2?'⛅':v<=3?'☁':v<=48?'≋':v<=67?'〰':v<=77?'*':'↯';};
+    var dc=function(v){return v===0?'Clear':v<=2?'Partly cloudy':v<=3?'Overcast':v<=48?'Fog':v<=67?'Rain':v<=77?'Snow':'Storm';};
+    document.getElementById('wxi').textContent=em(c.weathercode);
+    document.getElementById('wxt').textContent=Math.round(c.temperature_2m)+'°';
+    document.getElementById('wxd').textContent=dc(c.weathercode);
+  }catch(e){}
+}
+wx();setInterval(wx,600000);
+async function callAPI(prompt){
+  var r=await fetch('/api/news',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+  var d=await r.json();
+  return JSON.parse((d.content&&d.content[0]&&d.content[0].text||'{}').replace(/```json|```/g,'').trim());
+}
+function renderHero(h){
+  document.getElementById('hcat').textContent=h.category||'';
+  document.getElementById('hsrc').textContent=h.source||'';
+  document.getElementById('htm').textContent=h.time?' · '+h.time:'';
+  var t=document.getElementById('htitle');
+  t.textContent=h.title||'';t.href=h.url||'#';
+  document.getElementById('hsum').textContent=h.summary||'';
+}
+function paintStories(){
+  var show=filter==='all'?stories:stories.filter(function(s){return(s.category||'').toLowerCase()===filter;});
+  document.getElementById('slist').innerHTML=show.map(function(s,i){
+    return '<a class="srow" href="'+(s.url||'#')+'" target="_blank" rel="noopener">'+
+    '<span class="sn">'+String(i+1).padStart(2,'0')+'</span>'+
+    '<div class="sb"><div class="sm"><span class="sc">'+(s.category||'')+'</span><div class="sd"></div><span class="ss">'+(s.source||'')+'</span><div class="sd"></div><span class="stm">'+(s.time||'')+'</span></div>'+
+    '<div class="stitle">'+(s.title||'')+'</div><div class="ssnip">'+(s.snippet||'')+'</div></div>'+
+    '<span class="sarr">↗</span></a>';
+  }).join('');
+}
+function renderTrending(t){
+  var n=new Date(),h=n.getHours()%12||12;
+  document.getElementById('trtm').textContent=h+':'+String(n.getMinutes()).padStart(2,'0')+' '+(n.getHours()>=12?'PM':'AM');
+  document.getElementById('tlist').innerHTML=t.map(function(x,i){
+    return '<a class="trow" href="'+(x.url||'#')+'" target="_blank" rel="noopener">'+
+    '<span class="tn">'+String(i+1).padStart(2,'0')+'</span>'+
+    '<div><div class="th">'+(x.headline||'')+'</div><div class="tsrc">'+(x.source||'')+'</div></div></a>';
+  }).join('');
+}
+function renderAlerts(a){
+  if(!a||!a.length){document.getElementById('alerts').innerHTML='<div style="font-size:10px;color:#bbb;font-style:italic;font-weight:300;">No urgent alerts.</div>';return;}
+  document.getElementById('alerts').innerHTML=a.map(function(x){
+    return '<a class="arow" href="'+(x.url||'#')+'" target="_blank" rel="noopener">'+
+    '<div class="atxt">'+(x.text||'')+'</div><div class="atm">'+(x.time||'')+'</div></a>';
+  }).join('');
+}
+function renderTicker(items){
+  var d=items.concat(items);
+  document.getElementById('tt').innerHTML=d.map(function(t){return '<span>'+t+'</span>';}).join('');
+}
+function fcat(btn,cat){
+  document.querySelectorAll('.ctab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');filter=cat;paintStories();
+}
+async function doRefresh(){
+  var btn=document.getElementById('rfbtn');
+  btn.classList.add('spin');
+  document.getElementById('stat').textContent='Fetching…';
+  try{
+    var d=await callAPI('Senior national news editor. Today '+new Date().toDateString()+'. Generate current national & international news — CNN/AP/Reuters level only, no local news. Return ONLY valid JSON no markdown fences: {"ticker":["h1","h2","h3","h4","h5"],"hero":{"category":"Politics","title":"Headline","summary":"2-3 sentences.","source":"AP","time":"5 min ago","url":"https://apnews.com/","isBreaking":false},"stories":[{"category":"World","title":"Headline","snippet":"One sentence.","source":"Reuters","time":"12 min ago","url":"https://www.reuters.com/","isBreaking":false}],"trending":[{"headline":"Topic","source":"CNN","url":"https://www.cnn.com/"}],"briefing":"2-3 calm editorial sentences.","alerts":[]} Categories: Politics, World, Economy, Tech, Health, Culture, Breaking. Include 8 stories and 6 trending items. Use real outlet homepages for urls. Alerts only if truly urgent otherwise empty array.');
+    if(d.hero)renderHero(d.hero);
+    if(d.stories){stories=d.stories;paintStories();}
+    if(d.trending)renderTrending(d.trending);
+    if(d.alerts)renderAlerts(d.alerts);
+    if(d.ticker)renderTicker(d.ticker);
+    if(d.briefing)document.getElementById('brief').textContent=d.briefing;
+    var n=new Date(),h=n.getHours()%12||12;
+    document.getElementById('stat').textContent=h+':'+String(n.getMinutes()).padStart(2,'0')+' '+(n.getHours()>=12?'PM':'AM');
+  }catch(e){document.getElementById('stat').textContent='Error — try refresh';console.error(e);}
+  btn.classList.remove('spin');
+}
+doRefresh();
+setInterval(doRefresh,300000);
+setInterval(async function(){
+  try{
+    var d=await callAPI('Breaking news check. '+new Date().toDateString()+'. Any BREAKING national stories right now? Return ONLY JSON: {"alerts":[{"text":"...","time":"just now","url":"https://apnews.com/"}]} Max 2. Nothing breaking: {"alerts":[]}');
+    if(d.alerts&&d.alerts.length)renderAlerts(d.alerts);
+  }catch(e){}
+},90000);
+</script>
+</body>
+</html>
