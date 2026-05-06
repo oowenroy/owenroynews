@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#fafaf8;--ink:#111110;--mid:#888;--faint:#bbb;--line:#e8e7e2;}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;}
+.top{position:fixed;top:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:60;background:var(--bg);border-bottom:1px solid var(--line);}
+.tl{display:flex;align-items:center;gap:18px;}
+.live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--ink);animation:p 2s ease-in-out infinite;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.15}}
+.stat{font-size:10px;color:var(--faint);font-family:'Geist Mono',monospace;}
+.rfbtn{background:none;border:none;cursor:pointer;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);font-family:'Geist',sans-serif;display:flex;align-items:center;gap:4px;transition:color .2s;padding:0;}
+.rfbtn:hover{color:var(--ink);}
+.rfbtn.spin svg{animation:sp .6s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.tr{display:flex;align-items:center;gap:24px;}
+.wx{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--mid);font-family:'Geist Mono',monospace;}
+.wxt{color:var(--ink);}
+.clk{text-align:right;}
+.ct{font-family:'Geist Mono',monospace;font-size:14px;color:var(--ink);line-height:1;}
+.cd{font-size:9px;color:var(--faint);margin-top:3px;font-family:'Geist Mono',monospace;letter-spacing:.5px;}
+.ticker{position:fixed;top:48px;left:0;right:0;height:28px;border-bottom:1px solid var(--line);overflow:hidden;display:flex;align-items:center;z-index:55;background:var(--bg);}
+.ti{overflow:hidden;flex:1;}
+.tt{display:inline-flex;white-space:nowrap;animation:tk 60s linear infinite;}
+.tt span{font-size:10px;color:var(--faint);font-family:'Geist Mono',monospace;padding:0 32px;}
+.tt span::before{content:'·  ';}
+@keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.layout{position:fixed;top:76px;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 210px;}
+.feed{overflow-y:auto;}
+.feed::-webkit-scrollbar{width:0;}
+.fi{padding:40px 52px 140px;}
+.hero{margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid var(--line);}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ec{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--faint);}
+.esep{width:16px;height:1px;background:var(--line);}
+.er{fo
